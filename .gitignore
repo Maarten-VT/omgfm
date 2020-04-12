@@ -1,0 +1,12 @@
+*.so
+*.pyc
+__pycache__/
+lib/
+include/
+docs/_*/
+_skbuild/
+build/
+dist/
+.eggs/
+*.egg-info
+.vscode/

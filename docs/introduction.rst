@@ -47,8 +47,8 @@ Available rendrers:
     - :py:func:`~omgfm.renderers.to_commonmark` 
     - :py:func:`~omgfm.renderers.to_man`
 
-Available options for renderers:
---------------------------------
+Available options for renderers
+-------------------------------
 
 General (affects both parsing and rendering)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -159,6 +159,6 @@ The CommonMark. :meth:`~omgfm.renderers.CommonMark.to_html` method will always r
 
 The :class:`~omgfm.processors.ExtractMetadata` class can be configured and modified, for more info on this and other features see  the documentation on processors_.
 
-.. _processors: processors.html
+.. _processors: built_in_processors.html
 
 

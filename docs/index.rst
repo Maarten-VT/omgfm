@@ -11,6 +11,7 @@ omgfm
    :caption: Contents:
    
    introduction
+   built_in_processors
    
 
 API reference:

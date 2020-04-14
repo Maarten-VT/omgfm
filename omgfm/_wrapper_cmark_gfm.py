@@ -482,9 +482,7 @@ NODE_LINK          = CMARK_NODE_TYPE_INLINE | 0x0009
 NODE_IMAGE         = CMARK_NODE_TYPE_INLINE | 0x000a
 NODE_FOOTNOTE_REFERENCE = CMARK_NODE_TYPE_INLINE | 0x000b
 
-# These are dynamically generated and need to be pulled from the shared library
-# Can be used to compare to return value of node_get_type() but not to create new nodes.
-# New nodes made with below values will have a type <unknown>
+# These  need to be pulled from the shared library
 NODE_STRIKETHROUGH = c_int.in_dll(lib_ext, 'CMARK_NODE_STRIKETHROUGH')
 NODE_TABLE = c_int.in_dll(lib_ext, 'CMARK_NODE_TABLE')
 NODE_TABLE_CELL = c_int.in_dll(lib_ext, 'CMARK_NODE_TABLE_CELL')

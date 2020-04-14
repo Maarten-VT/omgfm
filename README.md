@@ -5,7 +5,7 @@ omgfm is build on top of [cmark-gfm](cmark_link). Aim is to make cmark-gfm's ren
 
 Features:
 ---------
-- [CommonMark](http://commonmark.org/)
+- [CommonMark](http://commonmark.org/) with GFM extensions. (see the [spec](https://github.github.com/gfm/) with GFM additions)
 - Simple interface for converting CommonMark formated text to any of the suported formats. (HTML, XML, CommonMark, man, LaTeX)
 - gfm extensions enabled by default, posibility to disable any one or all of them if needed 
 - a wrapper library for [cmark-gfm](cmark_link). 

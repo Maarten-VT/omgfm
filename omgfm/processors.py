@@ -1,7 +1,6 @@
 import re
 from omgfm import ast_tools
 from omgfm import _wrapper_cmark_gfm as _cmark
-from omgfm.ast_tools import walk, to_c_string, from_c_string, make_html_node, replace_node, make_link, append_child
 
 
 def get_headings(document):
@@ -21,21 +20,21 @@ def get_headings(document):
         list: a list of dictionaries containing info about the headings
     """
     def get_heading_info(node):
-        level = _cmark.node_get_heading_level(node)
-        line_no = _cmark.node_get_start_line(node)
+        level = ast_tools.get_heading_level(node)
+        line_no = ast_tools.get_start_line(node)
         # Get the heading level and line number
         # Find any text node to get the heading text
-        for cur, entering, node_type in walk(node):
+        for cur, entering, node_type in ast_tools.walk(node):
             if entering and node_type == _cmark.NODE_TEXT:
-                text = _cmark.node_get_literal(cur)
+                text = ast_tools.get_literal(cur)
                 data = {
                     'level': level,
-                    'text': from_c_string(text),
+                    'text': ast_tools.from_c_string(text),
                     'line_number': line_no
                     }
                 return(data)  
     heads = []
-    for node, entering, node_type in walk(document):        
+    for node, entering, node_type in ast_tools.walk(document):        
         if not entering and node_type == _cmark.NODE_HEADING:
             info = get_heading_info(node)
             heads.append(info)  
@@ -232,13 +231,13 @@ class MaxHeadingLevel(Processor):
         Raises:
             ValueError: If the max_level is set to something higher than 6 or lower than 1
         """
-        for node, entering, node_type in walk(root_node):        
+        for node, entering, node_type in ast_tools.walk(root_node):        
             if entering and node_type == _cmark.NODE_HEADING:
-                level = _cmark.node_get_heading_level(node)
+                level = ast_tools.get_heading_level(node)
                 if max_level > 6 or max_level < 0:
                     raise ValueError('max_level must be between 1 and 6')
                 if level > max_level:
-                    _cmark.node_set_heading_level(node, max_level)
+                    ast_tools.set_heading_level(node, max_level)
 
 
 class HeadingCollector(Processor):
@@ -258,21 +257,21 @@ class HeadingCollector(Processor):
             list: a list of dictionaries containing info about the headings
         """
         def get_heading_info(node):
-            level = _cmark.node_get_heading_level(node)
-            line_no = _cmark.node_get_start_line(node)
+            level = ast_tools.get_heading_level(node)
+            line_no = ast_tools.get_start_line(node)
             # Get the heading level and line number
             # Find any text node to get the heading text
-            for cur, entering, node_type in walk(node):
+            for cur, entering, node_type in ast_tools.walk(node):
                 if entering and node_type == _cmark.NODE_TEXT:
-                    text = _cmark.node_get_literal(cur)
+                    text = ast_tools.get_literal(cur)
                     data = {
                         'level': level,
-                        'text': from_c_string(text),
+                        'text': ast_tools.from_c_string(text),
                         'line_number': line_no
                         }
                     return(data)  
         heads = []
-        for node, entering, node_type in walk(document):        
+        for node, entering, node_type in ast_tools.walk(document):        
             if not entering and node_type == _cmark.NODE_HEADING:
                 info = get_heading_info(node)
                 heads.append(info)  
@@ -312,15 +311,15 @@ class TOCGenerator(Processor):
         """Iterate over root node, create heading tokens to generate toc, replace heading nodes in tree with html.
         """   
         headings_list = []
-        for node, entering, node_type in walk(root_node):
+        for node, entering, node_type in ast_tools.walk(root_node):
             if not entering and node_type == _cmark.NODE_HEADING:
-                level = _cmark.node_get_heading_level(node)
-                line_number = _cmark.node_get_start_line(node)
+                level = ast_tools.get_heading_level(node)
+                line_number = ast_tools.get_start_line(node)
                 text = ''
                 if not level > max_depth:
-                    for cur, entering, node_type in walk(node):
+                    for cur, entering, node_type in ast_tools.walk(node):
                         if entering and node_type == _cmark.NODE_TEXT:
-                            text = from_c_string(_cmark.node_get_literal(cur))
+                            text = ast_tools.get_literal(cur)
                             data = {
                                 'level': level,
                                 'text': text,

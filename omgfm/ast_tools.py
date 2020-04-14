@@ -60,6 +60,12 @@ type_map = {
 }
 """Mapping of friendly names to integer node_types that can be passed to cmark functions"""
 
+ext_type_map = {
+    'table': _cmark.NODE_TABLE,
+    'table_cell': _cmark.NODE_TABLE_CELL,
+    'table_row': _cmark.NODE_TABLE_ROW,
+    'strikethrough': _cmark.NODE_STRIKETHROUGH
+}
 
 list_names = {0: 'no_list', 1: 'bullet_list', 2: 'ordered_list'}
 list_tightness = {0: 'loose', 1:'tight'}
@@ -242,6 +248,31 @@ def make_image(url, title=None, description=None):
 
 # Node accessors
 
+def get_start_line(node):
+    """Returns the line on which *node* begins.
+    """
+    return _cmark.node_get_start_line(node)
+
+
+
+def get_end_line(node):
+    """Returns the line on which *node* ends.
+    """
+    return _cmark.node_get_end_line(node)
+
+
+def get_start_column(node):
+    """Returns the column at which *node* begins
+    """
+    return _cmark.node_get_start_column(node)
+
+
+def get_end_column(node):
+    """Returns the column at which *node* ends
+    """
+    return _cmark.node_get_end_column(node)
+
+
 def set_literal(node, text):
     """Sets the string contents of node to *text* . 
     
@@ -406,6 +437,34 @@ def new_node(ntype):
     if nodetype is None:
         raise ValueError('unknown node_type "{}"'.format(ntype))
     return _cmark.node_new(nodetype)
+    
+
+def new_node_with_extension(ntype, ext):
+    """creates a node specific to cmark-gfm extensions
+    
+    Args:
+        ntype (string): string representation of the type of node being created.
+            can be any of the folowing:
+
+                - table
+                - table_cell
+                - table_row
+                - strikethrough
+
+        ext (string): string representation of the extension this node belongs to.
+    
+    Returns:
+        cmark_node: a new instance of a cmark node
+    """
+    exts = ['autolink', 'table', 'strikethrough']
+    node_type = ext_type_map.get(ntype)
+    if node_type is None:
+        raise ValueError('unknown node_type "{}"'.format(ntype))
+    if ext not in exts:
+        raise ValueError('unknown extension "{}"'.format(ext))
+    ext = _cmark.find_syntax_extension(to_c_string(ext))
+    return _cmark.node_new_with_ext(node_type, ext)
+    
     
 
 def free_node(node):

@@ -18,6 +18,6 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: Implementation :: CPython',],
     keywords='commonmark cmark_gfm',
-    license='BSD',
+    license='MIT',
     author='Maarten van Tilborg'   
 )

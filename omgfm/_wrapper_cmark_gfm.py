@@ -168,6 +168,14 @@ node_new = wrap_ff(
     argtypes=[c_int]
 )
 
+# Use find_syntax_extension to get the extension you want
+# then use node_new_with_ext to create the custom node.
+node_new_with_ext = wrap_ff(
+    lib_cmark, 'cmark_node_new_with_ext', 
+    restype= c_void_p, 
+    argtypes=[c_int, c_void_p]
+    )
+
 node_free = wrap_ff(
     lib_cmark, 'cmark_node_free',
     restype=None,

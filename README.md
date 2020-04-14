@@ -1,18 +1,19 @@
 omgfm
 =====
 
-omgfm is build on top of [cmark-gfm](cmark_link). Aim is to make cmark-gfm's rendering options avaialble from python while maintining most of the speed benefit the shared C library provides. 
+omgfm is build on top of [cmark-gfm][cmark_link]. Aim is to make cmark-gfm's rendering options avaialble from python while maintining most of the speed benefit the shared C library provides. 
 
 Features:
 ---------
-- [CommonMark](http://commonmark.org/) with GFM extensions. (see the [spec](https://github.github.com/gfm/) with GFM additions)
+- [CommonMark][cmarkorg] with GFM extensions. (see the [spec][spec]] with GFM additions)
 - Simple interface for converting CommonMark formated text to any of the suported formats. (HTML, XML, CommonMark, man, LaTeX)
 - gfm extensions enabled by default, posibility to disable any one or all of them if needed 
-- a wrapper library for [cmark-gfm](cmark_link). 
+- a wrapper library for [cmark-gfm][cmark_link]. 
 - Provides additional functionality to facilitate pre-processing input text before parsing or to process the parsed AST before rendering. 
 
-[cmark_link]:https://github.com/github/cmark-gfm
-
+[cmark_link]: https://github.com/github/cmark-gfm
+[cmarkorg]: http://commonmark.org/
+[spec]: https://github.github.com/gfm/
 
 Quickstart
 ----------

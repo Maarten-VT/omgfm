@@ -29,7 +29,7 @@ def get_headings(document):
                 text = ast_tools.get_literal(cur)
                 data = {
                     'level': level,
-                    'text': ast_tools.from_c_string(text),
+                    'text': text,
                     'line_number': line_no
                     }
                 return(data)  
@@ -58,16 +58,16 @@ class Processor:
         .. highlight: python
         .. code-block:: python
 
-            from omgfm.renderers import CommonMark, 
-            from omgfm.processors import Processor, get_headings
+            >>> from omgfm.renderers import CommonMark 
+            >>> from omgfm.processors import Processor, get_headings
 
-            class HeadingCollector(Processor):
-                def process_input(self, root_node):
-                    self.data = get_headings(root_node)
+            >>> class HeadingCollector(Processor):
+            ...     def process_input(self, root_node):
+            ...         self.data = get_headings(root_node)
 
-            cm = CommonMark()
-            process_headings = HeadingCollector()       
-            cm.register_ast_processor('headings', process_headings)
+            >>> cm = CommonMark()
+            >>> process_headings = HeadingCollector()       
+            >>> cm.register_ast_processor('headings', process_headings)
 
         
         Above could be used as follows:
@@ -75,9 +75,10 @@ class Processor:
         .. highlight: python
         .. code-block:: python
         
-            >>> cm.to_html('# this is a H1 heading')
+            >>> processed, data = cm.to_html('# this is a H1 heading')
+            >>> processed
             '<h1>this is a H1 heading</h1>\\n'
-            >>> cm.data
+            >>> data
             {'headings': [{'level': 1, 'text': 'this is a H1 heading', 'line_number': 1}]}
     
     """
@@ -134,10 +135,10 @@ class ExtractMetadata(Processor):
             ... ---
             ... Some more text following the header
             ... '''
-            >>> em(text)
-            >>> em.data
+            >>> processed, data = em(text)
+            >>> data
             ['foo', {'bar': ['baz', None, 1.0, 2]}]
-            >>> em.processed
+            >>> processed
             'Some more text following the header\\n'
 
     """
@@ -200,15 +201,16 @@ class MaxHeadingLevel(Processor):
         .. highlight: python
         .. code-block:: python
 
-        >>> from omgfm.renderers import CommonMark, 
+        >>> from omgfm.renderers import CommonMark 
         >>> from omgfm.processors import MaxHeadingLevel
 
         >>> cm = CommonMark()
         >>> max_heads = MaxHeadingLevel(max_level=4)
         >>> cm.register_ast_processor('max_heads', max_heads)
 
-        >>> cm.to_html('###### h6 heading, will render as h4')
-        '<h4>h6 heading, will render as h4</h4>'
+        >>> processed, data = cm.to_html('###### h6 heading, will render as h4')
+        >>> processed
+        '<h4>h6 heading, will render as h4</h4>\\n'
 
     """
     def process_input(self, root_node, max_level=6):

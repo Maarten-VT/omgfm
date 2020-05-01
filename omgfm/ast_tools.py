@@ -827,7 +827,7 @@ def walk(root_node):
     free_iterator(it)   
 
 def make_options(**options):
-    """Generate the proper integer value to pass to cmark renerers and parsers based on keyword arguments
+    """Generate the proper integer value to pass to cmark renderers and parsers based on keyword arguments
     
     Keyword Args:
          source_pos (bool, optional): Include source index attribute. Default is False.

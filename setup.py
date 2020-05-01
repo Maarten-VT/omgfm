@@ -7,6 +7,7 @@ setup(
     packages=['cmark_gfm'],
     install_requires=['scikit-build', 'cmake'],
     setup_requires=['scikit-build', 'cmake'],
+    include_package_data=True,
     cmake_source_dir='omgfm/cmark_gfm_src', 
     cmake_install_dir='omgfm',
     zipsaf=False,

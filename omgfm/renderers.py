@@ -129,7 +129,7 @@ def to_latex(text, width=0, **options):
     Returns:
         string: UTF-8 encoded LaTex formatted string
     """
-    return render(text, 'latex', witdth=width, **options)
+    return render(text, 'latex', width=width, **options)
 
 
 def to_commonmark(text, width=0, **options):
@@ -144,7 +144,7 @@ def to_commonmark(text, width=0, **options):
     Returns:
         string: UTF-8 encoded CommonMark formatted string
     """
-    return render(text, 'commonmark', witdth=width, **options)
+    return render(text, 'commonmark', width=width, **options)
 
 
 def to_man(text, width=0, **options):
@@ -159,7 +159,7 @@ def to_man(text, width=0, **options):
     Returns:
         string: UTF-8 encoded Unix Man formatted string
     """    
-    return render(text, 'man', witdth=width, **options)
+    return render(text, 'man', width=width, **options)
 
 
 class CommonMark:
